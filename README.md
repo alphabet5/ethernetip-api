@@ -2,7 +2,10 @@
 
 This is a simple api to read/write tags using pycomm3 library. 
 
-The excel file uses VBA-tools/VBA-Web for an easy setup of the api requests.
+The excel file uses the following for an easy setup of the api requests and json constructing and parsing.
+- VBA-tools/VBA-Web
+- VBA-tools/VBA-JSON
+- VBA-tools/VBA-Dictionary (Included with VBA-tools/VBA-Web)
 
 ## Requirements
 
@@ -14,7 +17,7 @@ The excel file uses VBA-tools/VBA-Web for an easy setup of the api requests.
 
 The example Excel file contains a simple example of reading and writing tags.
 
-- Install the dependancies including python3.
+- Install the dependencies including python3.
 - Run the python file to start the web server. (by default runs at http://127.0.0.1:5000)
 
 Reading:

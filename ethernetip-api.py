@@ -47,4 +47,40 @@ def write():
         raise Exception(traceback.format_exc())
     return jsonify({'status': 'success'})
 
+@app.route('/array/', methods=['PUT'])
+def array_write():
+
+    plc_path = request.args.get('plc')
+    if plc_path in plc_connections.keys():
+        plc = plc_connections[plc_path]
+    else:
+        plc = LogixDriver(plc_path)
+        plc_connections[plc_path] = plc
+    tag = request.args.get('tag')
+    tag_type = plc.tags[tag.split('[')[0]]['data_type_name']
+    value = types[tag_type](request.args.get('value'))
+    error = plc.write((tag, value)).error
+    if error is not None:
+        import traceback
+        raise Exception(traceback.format_exc())
+    return jsonify({'status': 'success'})
+
+@app.route('/array/', methods=['GET'])
+def array_read():
+    plc_path = request.args.get('plc')
+    data = json.loads(request.data)
+    if plc_path in plc_connections.keys():
+        plc = plc_connections[plc_path]
+    else:
+        plc = LogixDriver(plc_path)
+        plc_connections[plc_path] = plc
+    tag = request.args.get('tag')
+    tag_type = plc.tags[tag.split('[')[0]]['data_type_name']
+    value = types[tag_type](request.args.get('value'))
+    error = plc.write((tag, value)).error
+    if error is not None:
+        import traceback
+        raise Exception(traceback.format_exc())
+    return jsonify({'status': 'success'})
+
 app.run(debug=True)
